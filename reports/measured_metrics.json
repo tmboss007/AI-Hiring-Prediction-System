@@ -1,0 +1,28 @@
+{
+  "holdout_without_ai_score": {
+    "accuracy": 0.96,
+    "precision": 0.996,
+    "recall": 0.959,
+    "f1": 0.977,
+    "roc_auc": 0.997
+  },
+  "cross_validation_without_ai_score": {
+    "accuracy_mean": 0.964,
+    "accuracy_std": 0.0124,
+    "precision_mean": 0.9962,
+    "precision_std": 0.0051,
+    "recall_mean": 0.9594,
+    "recall_std": 0.0114,
+    "f1_mean": 0.9774,
+    "f1_std": 0.0079,
+    "roc_auc_mean": 0.9967,
+    "roc_auc_std": 0.0022
+  },
+  "with_ai_score": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0
+  }
+}
