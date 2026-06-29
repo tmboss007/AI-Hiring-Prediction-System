@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Hiring Prediction System | ML-Powered Resume Screening</title>
+  <meta name="description" content="An end-to-end Machine Learning pipeline for AI-based resume screening. Achieves 96% accuracy and 99.7% ROC-AUC using Logistic Regression with advanced feature engineering." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="navbar">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="logo-icon">⬡</span>
+        <span>AI<span class="accent">Hire</span></span>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#metrics">Metrics</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="https://github.com/tmboss007/AI-Hiring-Prediction-System" target="_blank" class="btn btn--outline btn--sm">GitHub ↗</a></li>
+      </ul>
+      <button class="nav__burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero" id="home">
+    <div class="hero__bg">
+      <div class="orb orb--1"></div>
+      <div class="orb orb--2"></div>
+      <div class="orb orb--3"></div>
+      <canvas id="particleCanvas"></canvas>
+    </div>
+    <div class="hero__content container">
+      <div class="hero__badge" id="heroBadge">
+        <span class="badge-dot"></span>
+        Machine Learning · HR Analytics · Resume Screening
+      </div>
+      <h1 class="hero__title" id="heroTitle">
+        AI-Powered<br/>
+        <span class="gradient-text">Hiring Prediction</span><br/>
+        System
+      </h1>
+      <p class="hero__sub" id="heroSub">
+        An end-to-end ML pipeline that predicts candidate hiring outcomes with
+        <strong>96% accuracy</strong> and <strong>99.7% ROC-AUC</strong> — built with
+        Logistic Regression, multi-hot skill encoding, and robust cross-validation.
+      </p>
+      <div class="hero__actions" id="heroActions">
+        <a href="https://github.com/tmboss007/AI-Hiring-Prediction-System" target="_blank" class="btn btn--primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#metrics" class="btn btn--ghost">Explore Results →</a>
+      </div>
+      <div class="hero__stats" id="heroStats">
+        <div class="stat-pill"><span class="stat-num">96%</span><span class="stat-label">Accuracy</span></div>
+        <div class="stat-pill"><span class="stat-num">99.7%</span><span class="stat-label">ROC-AUC</span></div>
+        <div class="stat-pill"><span class="stat-num">1,000</span><span class="stat-label">Candidates</span></div>
+        <div class="stat-pill"><span class="stat-num">5-Fold</span><span class="stat-label">CV Verified</span></div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <div class="scroll-indicator"></div>
+    </div>
+  </header>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Overview</span>
+        <h2>What This Project Does</h2>
+        <p>A complete, production-ready ML system for intelligent resume screening — from raw CSV to deployment-ready model.</p>
+      </div>
+      <div class="overview-grid">
+        <div class="card card--glow" data-animate>
+          <div class="card__icon">🎯</div>
+          <h3>Objective</h3>
+          <p>Predict whether a candidate will be <strong>Hired</strong> or <strong>Rejected</strong> based on resume data including skills, experience, education, certifications, job role, and salary expectations.</p>
+        </div>
+        <div class="card card--glow" data-animate>
+          <div class="card__icon">📊</div>
+          <h3>Dataset</h3>
+          <p>1,000 synthetic resume profiles with 11 columns. Target distribution: <strong>812 Hires</strong> (81.2%) and <strong>188 Rejects</strong> (18.8%). Certifications column has 274 missing values handled via imputation.</p>
+        </div>
+        <div class="card card--glow" data-animate>
+          <div class="card__icon">🧬</div>
+          <h3>Feature Engineering</h3>
+          <p>Custom <strong>multi-hot skill encoding</strong>, one-hot encoding for categoricals, StandardScaler for numerics, and a leakage-aware design that deliberately excludes the AI Score feature.</p>
+        </div>
+        <div class="card card--glow" data-animate>
+          <div class="card__icon">🤖</div>
+          <h3>Model</h3>
+          <p><strong>Logistic Regression</strong> with <code>saga</code> solver and <code>class_weight='balanced'</code> for handling class imbalance. Wrapped in a full sklearn <code>Pipeline</code> for clean, reproducible inference.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== METRICS ===== -->
+  <section class="section section--dark" id="metrics">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Evaluation</span>
+        <h2>Model Performance</h2>
+        <p>Results from both holdout evaluation and 5-fold stratified cross-validation.</p>
+      </div>
+      <div class="metrics-layout">
+        <div class="metrics-main">
+          <div class="metric-tabs">
+            <button class="tab-btn active" data-tab="holdout" id="tab-holdout">Holdout Test</button>
+            <button class="tab-btn" data-tab="cv" id="tab-cv">Cross-Validation</button>
+          </div>
+          <div class="tab-content active" id="panel-holdout">
+            <div class="gauge-grid">
+              <div class="gauge-item" data-value="96" data-color="#06b6d4">
+                <div class="gauge-ring"><canvas class="gauge-canvas" width="120" height="120"></canvas><div class="gauge-label"><span class="gauge-num">96%</span></div></div>
+                <span class="gauge-name">Accuracy</span>
+              </div>
+              <div class="gauge-item" data-value="99.6" data-color="#8b5cf6">
+                <div class="gauge-ring"><canvas class="gauge-canvas" width="120" height="120"></canvas><div class="gauge-label"><span class="gauge-num">99.6%</span></div></div>
+                <span class="gauge-name">Precision</span>
+              </div>
+              <div class="gauge-item" data-value="95.9" data-color="#10b981">
+                <div class="gauge-ring"><canvas class="gauge-canvas" width="120" height="120"></canvas><div class="gauge-label"><span class="gauge-num">95.9%</span></div></div>
+                <span class="gauge-name">Recall</span>
+              </div>
+              <div class="gauge-item" data-value="97.7" data-color="#f59e0b">
+                <div class="gauge-ring"><canvas class="gauge-canvas" width="120" height="120"></canvas><div class="gauge-label"><span class="gauge-num">97.7%</span></div></div>
+                <span class="gauge-name">F1 Score</span>
+              </div>
+              <div class="gauge-item gauge-item--wide" data-value="99.7" data-color="#ec4899">
+                <div class="gauge-ring"><canvas class="gauge-canvas" width="120" height="120"></canvas><div class="gauge-label"><span class="gauge-num">99.7%</span></div></div>
+                <span class="gauge-name">ROC-AUC</span>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content" id="panel-cv">
+            <div class="cv-table-wrap">
+              <table class="cv-table">
+                <thead><tr><th>Metric</th><th>Mean</th><th>Std Dev</th><th>Visual</th></tr></thead>
+                <tbody>
+                  <tr><td>Accuracy</td><td><strong>96.4%</strong></td><td>±1.24%</td><td><div class="bar-cell"><div class="bar-fill" style="width:96.4%;background:#06b6d4"></div></div></td></tr>
+                  <tr><td>Precision</td><td><strong>99.6%</strong></td><td>±0.51%</td><td><div class="bar-cell"><div class="bar-fill" style="width:99.6%;background:#8b5cf6"></div></div></td></tr>
+                  <tr><td>Recall</td><td><strong>95.9%</strong></td><td>±1.14%</td><td><div class="bar-cell"><div class="bar-fill" style="width:95.9%;background:#10b981"></div></div></td></tr>
+                  <tr><td>F1 Score</td><td><strong>97.7%</strong></td><td>±0.79%</td><td><div class="bar-cell"><div class="bar-fill" style="width:97.7%;background:#f59e0b"></div></div></td></tr>
+                  <tr><td>ROC-AUC</td><td><strong>99.7%</strong></td><td>±0.22%</td><td><div class="bar-cell"><div class="bar-fill" style="width:99.7%;background:#ec4899"></div></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="leakage-card" data-animate>
+          <div class="leakage-badge">⚠️ Leakage Check</div>
+          <h3>Why AI Score Was Excluded</h3>
+          <p>Including the <code>AI Score (0-100)</code> feature produced <strong>perfect 100% scores</strong> across all metrics — a clear sign of data leakage (the score likely encodes the hiring outcome directly).</p>
+          <p>The production model deliberately <strong>excludes</strong> this feature to ensure fairness and generalizability.</p>
+          <div class="leakage-compare">
+            <div class="lc-item lc-bad">
+              <span class="lc-label">With AI Score</span>
+              <span class="lc-val">100% ← Leakage</span>
+            </div>
+            <div class="lc-item lc-good">
+              <span class="lc-label">Without AI Score</span>
+              <span class="lc-val">96% ← Fair Model</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIPELINE ===== -->
+  <section class="section" id="pipeline">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Architecture</span>
+        <h2>ML Pipeline</h2>
+        <p>A clean, sklearn-native Pipeline — from raw CSV to predictions.</p>
+      </div>
+      <div class="pipeline-flow">
+        <div class="pipe-step" data-animate>
+          <div class="pipe-icon" style="--c:#06b6d4">📂</div>
+          <div class="pipe-body">
+            <h4>Data Loading</h4>
+            <p>Reads CSV with validation of all required columns. Handles schema mismatches gracefully.</p>
+          </div>
+          <div class="pipe-num">01</div>
+        </div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step" data-animate>
+          <div class="pipe-icon" style="--c:#8b5cf6">🔧</div>
+          <div class="pipe-body">
+            <h4>Feature Engineering</h4>
+            <p>Custom <code>SkillMultiHotEncoder</code> tokenizes comma-separated skills into binary vectors. Drops leaky <code>AI Score</code>.</p>
+          </div>
+          <div class="pipe-num">02</div>
+        </div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step" data-animate>
+          <div class="pipe-icon" style="--c:#10b981">🔄</div>
+          <div class="pipe-body">
+            <h4>Preprocessing</h4>
+            <p><code>ColumnTransformer</code> applies OneHotEncoding to categoricals, StandardScaler to numerics, and median/mode imputation for missing values.</p>
+          </div>
+          <div class="pipe-num">03</div>
+        </div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step" data-animate>
+          <div class="pipe-icon" style="--c:#f59e0b">🧠</div>
+          <div class="pipe-body">
+            <h4>Model Training</h4>
+            <p>Logistic Regression (<code>saga</code>, <code>class_weight='balanced'</code>) trained on 80% split. 5-fold CV for stability estimates.</p>
+          </div>
+          <div class="pipe-num">04</div>
+        </div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step" data-animate>
+          <div class="pipe-icon" style="--c:#ec4899">💾</div>
+          <div class="pipe-body">
+            <h4>Artifact Export</h4>
+            <p>Saves <code>hiring_prediction_model.joblib</code> and <code>metrics.json</code> to <code>artifacts/</code> for production deployment.</p>
+          </div>
+          <div class="pipe-num">05</div>
+        </div>
+      </div>
+      <div class="code-block-wrap" data-animate>
+        <div class="code-header">
+          <span class="code-title">Quick Start</span>
+          <button class="copy-btn" id="copyBtn" onclick="copyCode()">Copy</button>
+        </div>
+        <pre class="code-block"><code><span class="c"># 1. Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="c"># 2. Run the pipeline</span>
+python src/ai_hiring_prediction_system.py \
+    --data "data/AI-Based Hiring Prediction System (1) (1).csv"
+
+<span class="c"># 3. (Optional) Include AI Score for leakage check</span>
+python src/ai_hiring_prediction_system.py \
+    --data "data/AI-Based Hiring Prediction System (1) (1).csv" \
+    --include-ai-score</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSIGHTS ===== -->
+  <section class="section section--dark" id="insights">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Key Findings</span>
+        <h2>What Drives Hiring Decisions?</h2>
+        <p>Top signals extracted from the Logistic Regression model coefficients.</p>
+      </div>
+      <div class="insights-grid">
+        <div class="insight-card" data-animate>
+          <div class="insight-icon">🏆</div>
+          <h3>Top Positive Signals</h3>
+          <ul class="insight-list">
+            <li><span class="tag tag--cyan">Experience (Years)</span> — Strongest numeric predictor</li>
+            <li><span class="tag tag--purple">Projects Count</span> — Higher portfolio, better odds</li>
+            <li><span class="tag tag--green">Python</span> — Most valuable technical skill</li>
+            <li><span class="tag tag--green">Machine Learning</span> — High demand skill</li>
+            <li><span class="tag tag--green">TensorFlow / PyTorch</span> — Deep learning expertise</li>
+            <li><span class="tag tag--green">Ethical Hacking</span> — Niche but valued</li>
+          </ul>
+        </div>
+        <div class="insight-card" data-animate>
+          <div class="insight-icon">📈</div>
+          <h3>Dataset Profile</h3>
+          <div class="dist-bar-wrap">
+            <div class="dist-label"><span>Hired (81.2%)</span><span>812</span></div>
+            <div class="dist-bar"><div class="dist-fill dist-fill--hire" style="width:81.2%"></div></div>
+            <div class="dist-label"><span>Rejected (18.8%)</span><span>188</span></div>
+            <div class="dist-bar"><div class="dist-fill dist-fill--reject" style="width:18.8%"></div></div>
+          </div>
+          <p class="insight-note">Imbalanced dataset handled via <code>class_weight='balanced'</code> to avoid bias toward the majority class.</p>
+        </div>
+        <div class="insight-card insight-card--wide" data-animate>
+          <div class="insight-icon">🔬</div>
+          <h3>Why Logistic Regression?</h3>
+          <div class="why-lr-grid">
+            <div class="why-item"><div class="why-icon">⚡</div><div><strong>Interpretable</strong><p>Coefficients directly map to feature importance — ideal for HR explainability requirements.</p></div></div>
+            <div class="why-item"><div class="why-icon">🎯</div><div><strong>Calibrated Probabilities</strong><p>Outputs well-calibrated hiring probability scores (not just binary decisions).</p></div></div>
+            <div class="why-item"><div class="why-icon">🛡️</div><div><strong>Robust to Overfitting</strong><p>With <code>class_weight='balanced'</code> and the saga solver, handles sparse multi-hot features gracefully.</p></div></div>
+            <div class="why-item"><div class="why-icon">🚀</div><div><strong>Production-Ready</strong><p>Serialized with joblib in a full sklearn Pipeline — trivial to deploy behind an API endpoint.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DEMO ===== -->
+  <section class="section" id="demo">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive</span>
+        <h2>Candidate Screener Demo</h2>
+        <p>Try the model logic with a sample candidate profile. This is a client-side simulation of the ML model's decision boundary.</p>
+      </div>
+      <div class="demo-layout">
+        <div class="demo-form-card" data-animate>
+          <h3>Candidate Profile</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="skills">Skills (comma-separated)</label>
+              <input type="text" id="skills" value="Python, Machine Learning, SQL, TensorFlow" placeholder="e.g. Python, SQL, TensorFlow" />
+            </div>
+            <div class="form-group">
+              <label for="experience">Experience (Years)</label>
+              <input type="range" id="experience" min="0" max="15" value="4" oninput="updateSlider('experience','expVal')" />
+              <span class="slider-val" id="expVal">4 years</span>
+            </div>
+            <div class="form-group">
+              <label for="education">Education</label>
+              <select id="education">
+                <option>B.Tech</option>
+                <option>M.Tech</option>
+                <option>MBA</option>
+                <option>BBA</option>
+                <option>PhD</option>
+                <option>High School</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="certifications">Certifications</label>
+              <select id="certifications">
+                <option>Google ML</option>
+                <option>AWS</option>
+                <option>Azure</option>
+                <option>PMP</option>
+                <option>None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="jobrole">Job Role</label>
+              <select id="jobrole">
+                <option>Data Scientist</option>
+                <option>Software Engineer</option>
+                <option>Product Manager</option>
+                <option>Data Analyst</option>
+                <option>ML Engineer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="salary">Salary Expectation</label>
+              <input type="range" id="salary" min="30000" max="150000" step="5000" value="72000" oninput="updateSlider('salary','salVal')" />
+              <span class="slider-val" id="salVal">$72,000</span>
+            </div>
+            <div class="form-group">
+              <label for="projects">Projects Count</label>
+              <input type="range" id="projects" min="0" max="20" value="5" oninput="updateSlider('projects','projVal')" />
+              <span class="slider-val" id="projVal">5 projects</span>
+            </div>
+          </div>
+          <button class="btn btn--primary btn--full" onclick="runPrediction()" id="predictBtn">
+            Run Prediction →
+          </button>
+        </div>
+        <div class="demo-result-card" id="resultCard">
+          <div class="result-placeholder" id="resultPlaceholder">
+            <div class="placeholder-icon">🤖</div>
+            <p>Fill in the candidate profile and click <strong>Run Prediction</strong></p>
+          </div>
+          <div class="result-content hidden" id="resultContent">
+            <div class="result-verdict" id="resultVerdict"></div>
+            <div class="result-prob-wrap">
+              <span>Hire Probability</span>
+              <div class="prob-bar-track">
+                <div class="prob-bar-fill" id="probBar"></div>
+              </div>
+              <span class="prob-pct" id="probPct"></span>
+            </div>
+            <div class="result-factors" id="resultFactors"></div>
+            <p class="result-disclaimer">⚠️ This is a client-side heuristic simulation for demonstration. Run the actual Python model for true ML predictions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TECH STACK ===== -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Stack</span>
+        <h2>Technologies Used</h2>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-pill" data-animate><span class="tech-icon">🐍</span> Python 3.10+</div>
+        <div class="tech-pill" data-animate><span class="tech-icon">🔬</span> scikit-learn</div>
+        <div class="tech-pill" data-animate><span class="tech-icon">🐼</span> pandas</div>
+        <div class="tech-pill" data-animate><span class="tech-icon">🔢</span> NumPy</div>
+        <div class="tech-pill" data-animate><span class="tech-icon">📊</span> SciPy</div>
+        <div class="tech-pill" data-animate><span class="tech-icon">💾</span> joblib</div>
+        <div class="tech-pill" data-animate><span class="tech-icon">📓</span> Jupyter</div>
+        <div class="tech-pill" data-animate><span class="tech-icon">🐙</span> GitHub</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-icon">⬡</span>
+          <span>AI<span class="accent">Hire</span> Prediction System</span>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/tmboss007/AI-Hiring-Prediction-System" target="_blank">GitHub Repository</a>
+          <a href="https://github.com/tmboss007/AI-Hiring-Prediction-System/blob/main/reports/AI_Hiring_Prediction_Project_Report.md" target="_blank">Full Report</a>
+          <a href="https://github.com/tmboss007/AI-Hiring-Prediction-System/blob/main/notebooks/AI_Hiring_Prediction_System.ipynb" target="_blank">Notebook</a>
+        </div>
+        <p class="footer-copy">Built with ❤️ by <a href="https://github.com/tmboss007" target="_blank">tmboss007</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
